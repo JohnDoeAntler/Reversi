@@ -1,8 +1,13 @@
-public class ObliqueFlipStrategy implements IStrategy {  
+package com.c010ur1355.Reversi.FlipStrategy;
+
+import com.c010ur1355.Reversi.Core.Chessboard;
+import com.c010ur1355.Reversi.Enum.Chess;
+import com.c010ur1355.Reversi.Model.Coordinate;
+
+public class ObliqueFlipStrategy implements IStrategy {
     @Override
     public void flip(Chessboard chessboard, Coordinate coordinate) {
-        Chess[][] tmp = chessboard.getChessboard();
-
+        
         int y = coordinate.getY();
         int x = coordinate.getX();
 
@@ -21,9 +26,9 @@ public class ObliqueFlipStrategy implements IStrategy {
              && j >= 0;
              i--,
              j--){
-            if (tmp[i][j] == Chess.EMPTY){
+            if (chessboard.getChess(i, j) == Chess.EMPTY){
                 break;
-            }else if (tmp[i][j] == chess){
+            }else if (chessboard.getChess(i, j) == chess){
                 stridx[0] = i;
                 stridx[1] = j;
                 break;
@@ -33,13 +38,13 @@ public class ObliqueFlipStrategy implements IStrategy {
         //back-slash down
         for (int i = y + 1,
              j = x + 1;
-             i < tmp.length
-             && j < tmp[0].length;
+             i < chessboard.getHeight()
+             && j < chessboard.getWidth();
              i++,
              j++){
-            if (tmp[i][j] == Chess.EMPTY){
+            if (chessboard.getChess(i, j) == Chess.EMPTY){
                 break;
-            }else if (tmp[i][j] == chess){
+            }else if (chessboard.getChess(i, j) == chess){
                 endidx[0] = i;
                 endidx[1] = j;
                 break;
@@ -53,7 +58,7 @@ public class ObliqueFlipStrategy implements IStrategy {
              && j < endidx[1] + 1;
              i++,
              j++){
-            tmp[i][j] = chess;
+            chessboard.setChess(i, j, chess) ;
         }
     }
 }

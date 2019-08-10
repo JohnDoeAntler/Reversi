@@ -1,8 +1,13 @@
-public class ColFlipStrategy implements IStrategy { 
+package com.c010ur1355.Reversi.FlipStrategy;
+
+import com.c010ur1355.Reversi.Core.Chessboard;
+import com.c010ur1355.Reversi.Enum.Chess;
+import com.c010ur1355.Reversi.Model.Coordinate;
+
+public class ColFlipStrategy implements IStrategy {
     @Override
     public void flip(Chessboard chessboard, Coordinate coordinate) {
-        Chess[][] tmp = chessboard.getChessboard();
-
+        
         int y = coordinate.getY();
         int x = coordinate.getX();
 
@@ -15,19 +20,19 @@ public class ColFlipStrategy implements IStrategy {
 
         //horizontal left
         for (int i = x - 1; i >= 0; i--){
-            if (tmp[y][i] == Chess.EMPTY){
+            if (chessboard.getChess(y, i) == Chess.EMPTY){
                 break;
-            }else if (tmp[y][i] == step){
+            }else if (chessboard.getChess(y, i) == step){
                 stridx = i;
                 break;
             }
         }
 
         //horizontal right
-        for (int i = x + 1; i < tmp[0].length; i++){
-            if (tmp[y][i] == Chess.EMPTY){
+        for (int i = x + 1; i < chessboard.getWidth(); i++){
+            if (chessboard.getChess(y, i) == Chess.EMPTY){
                 break;
-            }else if (tmp[y][i] == step){
+            }else if (chessboard.getChess(y, i) == step){
                 endidx = i;
                 break;
             }
@@ -35,7 +40,7 @@ public class ColFlipStrategy implements IStrategy {
 
         //flip
         for (int i = stridx; i < endidx + 1; i++){
-            tmp[y][i] = step;
+            chessboard.setChess(y, i, step);
         }
     }
 }

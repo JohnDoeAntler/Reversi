@@ -1,3 +1,5 @@
+package com.c010ur1355.Reversi.Service;
+
 import java.util.Scanner;
 
 public class ScannerSingleton {

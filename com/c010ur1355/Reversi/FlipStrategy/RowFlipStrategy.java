@@ -1,8 +1,13 @@
-public class RowFlipStrategy implements IStrategy { 
+package com.c010ur1355.Reversi.FlipStrategy;
+
+import com.c010ur1355.Reversi.Core.Chessboard;
+import com.c010ur1355.Reversi.Enum.Chess;
+import com.c010ur1355.Reversi.Model.Coordinate;
+
+public class RowFlipStrategy implements IStrategy {
     @Override
     public void flip(Chessboard chessboard, Coordinate coordinate) {
-        Chess[][] tmp = chessboard.getChessboard();
-
+        
         int y = coordinate.getY();
         int x = coordinate.getX();
 
@@ -15,19 +20,19 @@ public class RowFlipStrategy implements IStrategy {
 
         // vertical up
         for (int i = y - 1; i >= 0; i--){
-            if (tmp[i][x] == Chess.EMPTY){
+            if (chessboard.getChess(i, x) == Chess.EMPTY){
                 break;
-            }else if (tmp[i][x] == chess){
+            }else if (chessboard.getChess(i, x) == chess){
                 stridx = i;
                 break;
             }
         }
 
         //vertical down
-        for (int i = y + 1; i < tmp.length; i++){
-            if (tmp[i][x] == Chess.EMPTY){
+        for (int i = y + 1; i < chessboard.getHeight(); i++){
+            if (chessboard.getChess(i, x) == Chess.EMPTY){
                 break;
-            }else if (tmp[i][x] == chess){
+            }else if (chessboard.getChess(i, x) == chess){
                 endidx = i;
                 break;
             }
@@ -35,7 +40,7 @@ public class RowFlipStrategy implements IStrategy {
 
         //flip
         for (int i = stridx; i < endidx + 1; i++){
-            tmp[i][x] = chess;
+            chessboard.setChess(i, x, chess);
         }
     }
 }

@@ -1,3 +1,5 @@
+package com.c010ur1355.Reversi.Enum;
+
 public enum Chess {
 	// chess color
     EMPTY,
